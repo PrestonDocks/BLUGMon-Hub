@@ -1,0 +1,41 @@
+This folder will contain a list of sub folders.
+
+Each sub folder will represent a remote server with a running daemon
+
+Each sub folder will contain the following files
+
+- configuration
+- modules
+- tasks
+- logs
+
+File Descriptions
+
+#configuration
+	This will contain information such as
+	
+	IP Address
+	Friendly Name
+	Active (Y/N)
+	NotifyEmail (Y/N)
+	SMTPServer
+	SMTPPassword
+	log verbosity
+	
+	Other ideasfor configuration
+	NotifySerial - could get arduino to flash a light and sound an alarm when an error condition existed
+	SerialPort
+
+#modules
+	All modules to stored on a remote must first be installed on the hub. They are installed once on the Hub.
+	Once installed, they are available to be pushed to any remote. Configuration of individual remote modules
+	can happen once the module is installed on the remote.
+	
+#tasks
+	tasks for remotes are created on the hub. They are stored in the tasks list. On a regular basis the remote
+	will poll the hub and pull the updated tasks list.
+	
+#log
+	All configuration information including network coms will be stored in log files. The verbosity of this information
+	will be controlled by a variable set in the configuration file.
+
