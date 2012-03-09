@@ -22,27 +22,19 @@ class ManageModules(object):
             
     def unInstallModule(self,moduleName):
         if self.moduleExists(moduleName):
-            response = raw_input("Are you sure you want to uninstall module " + moduleName + "(y/n)")
-            if response == "y":
-                shutil.rmtree(os.path.join("./modules",moduleName), False)
-                print "Module " + moduleName + " uninstalled."
-            else:
-                print "Uninstall canceled."
+            shutil.rmtree(os.path.join("./modules",moduleName), False)
         else:
-            print "Can not uninstall module that is not installed"
+            raise ModuleDoesNotExist(moduleName)
     
     def installModule(self,archivePath):
-        tar = tarfile.open(archivePath,"r:gz")
-        tar.extractall("./modules")
-        moduleName = os.path.basename(archivePath)[:-7]
-        if not self.moduleExists(moduleName):
-            print "Module install failed."
+        if not os.path.exists(archivePath):
+            raise ModuleArchiveNonExistent(archivePath)
         else:
-            print "module was installed."
-            self.moduleDetail(moduleName, printList=True)
-        
-        
-        
+            tar = tarfile.open(archivePath,"r:gz")
+            tar.extractall("./modules")
+            moduleName = os.path.basename(archivePath)[:-7]
+            if not self.moduleExists(moduleName):
+                raise ModuleInstallFailed(archivePath)
     
     def moduleDetail(self,moduleName=None,printList=True):
         moduleConfig = []
@@ -89,9 +81,21 @@ class ManageModules(object):
         buildTask.append(task[0])
         
         
-        
-    
+class ModuleBaseException(Exception):
+    def __init__(self, modulename):
+        self.modulename = modulename
 
+class ModuleDoesNotExist(ModuleBaseException):
+    def __str__(self):
+        return "Module '%s' does not exists." % self.modulename
+
+class ModuleInstallFailed(ModuleBaseException):
+    def __str__(self):
+        return "Module '%s' could not be installed." % self.modulename
+
+class ModuleArchiveNonExistent(ModuleBaseException):
+    def __str__(self):
+        return "Module archive '%s' does not exist." % self.modulename
              
 
 if __name__ == "__main__":
