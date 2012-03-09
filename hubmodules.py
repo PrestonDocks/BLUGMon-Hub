@@ -21,7 +21,7 @@ class ManageModules(object):
             
             
     def unInstallModule(self,moduleName):
-        if os.path.isdir(os.path.join("./modules",moduleName)):
+        if self.moduleExists(moduleName):
             response = raw_input("Are you sure you want to uninstall module " + moduleName + "(y/n)")
             if response == "y":
                 shutil.rmtree(os.path.join("./modules",moduleName), False)
@@ -66,10 +66,8 @@ class ManageModules(object):
             return moduleConfig
         
     def moduleExists(self,moduleName):
-        if not os.path.isdir(os.path.join("./modules",moduleName)):
-            return False
-        else:
-            return True
+        return os.path.isdir(os.path.join("./modules",moduleName))
+
     def importModule(self,moduleName):
         runModule = None
         exec("import " + "modules." + moduleName + "." + moduleName + " as runModule")
