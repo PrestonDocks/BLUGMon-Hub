@@ -65,18 +65,29 @@ class HubRemote(object):
         else:
             return False
     
-    def rmtlist(self):
+    def remoteList(self):
         """
         List all the configured remotes in the remote folder.
         Allow the list to be formated in different ways. I.e. show only enabled remotes,
         show all remotes, show enabled and disabled remotes in different colours.
+        
+        The data should be put into a tupel object with each element being a dictionary
+        The dictionary will hold the following information
+        
+        Remote Name
+        Host Name/IP Address
+        Active (True or False)
+        
+        As an example the Tupel will look something like this
+        ( {'name':'WebServer','host':'19.168.0.200','active':True} ,  {'name':'FileServer','host':'19.168.0.201','active':True} ) 
+        
         """
         pass
     
     def rmtDelete(self):
         """
         Delete a remote configuration completely. This will mean removing the high level
-        folder from the remotes folder. 
+        folder from the remotes folder. i.e './remotes/WebServer' would have to be deleted 
         """
         pass
     
