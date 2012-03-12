@@ -4,11 +4,13 @@ from common.client import *
 from common.storage import *
 
 if __name__ == '__main__':
-    clients = ClientMananger(Storage("Hub.Clients"))
-    modules = ModuleManager(Storage("Hub.Modules"))
+    hubStorage = LocalStorage("Hub")
+
+    clients = ClientMananger(hubStorage.domain("Clients"))
+    modules = ModuleManager(hubStorage.domain("Modules"))
 
     #Create and register new client
-    newClient = Client("Hub.Clients.1")
+    newClient = Client("New Client 1")
     clients.register(newClient)
 
     #Create a ping task     module                     task    params         sched

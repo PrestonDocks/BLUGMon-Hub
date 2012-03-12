@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 class Client(object):
-    def __init__(self, identifier):
+    def __init__(self, storage):
         self._storage = storage
-        self._tasks = TaskManager(self._storage)
-        self._modules = ModuleManager(self._storage)
+        self._tasks = TaskManager(self._storage.domain("task-(\d+)"))
+        self._modules = ModuleManager(self._storage.domain("modules-(\d+)"))
 
     @property
     def name(self):
@@ -15,14 +15,17 @@ class Client(object):
     def identifier(self):
         return self._identifier
 
+    # When did remote last speak to hub
     @property
     def last_update(self):
         return self._last_update
     
+    # Instance of TaskManager for this client
     @property
     def tasks(self):
         return self._tasks
 
+    # Instance of ModuleManager for this client
     @property
     def modules(self):
         return self._modules
@@ -32,17 +35,21 @@ class ClientManager():
         self._clients = []
         pass
 
-    # Generate new indentifier and store client attributes. Return success or fail. 
+    # Generate new indentifier and store any client attributes. Return success or fail. 
     # Populate client identifier somehow, readonly identfier?
     def register(client):
+        # identifier = generate_blah()
+        Client(self._storage.domain("client-%s" % identifier))
         pass
 
     def unregister(indentifier):
+        # check existence first
         pass
 
     # Return a refernece to a client instance with the coresponding identifier.
-    def getbyid(indentifier):
-        pass
+    def getbyid(identifier):
+        # check existence first
+        return Client(self._storage.domain("client-%s" % identifier))
 
     pass
 
