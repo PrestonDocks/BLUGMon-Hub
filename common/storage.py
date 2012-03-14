@@ -14,18 +14,40 @@ class Storage(object):
         return Storage(self._domain.add(name))
 
     def get(self, key):
-        return self._read(domain, key)
+        return self._read(self._domain, key)
 
     def put(self, key, value):
-        return self._write(domain, key, value)
+        return self._write(self._domain, key, value)
     
     # Returns all the keys in the current domain
     def keys():
         self._readkeys(domain)
 
     # Returns a list of all the domains that contain domain 
-    def domains(domain=None)
+    def domains(domain=None):
         pass
+
+class MemoryStorage(Storage):
+    def __init__(self, domain):
+        super(MemoryStorage, self).__init__(domain)
+        self._dictionary = dict()
+    
+    # Check the domain length
+    def _check_and_append(domain, key):
+        pass
+
+    def _write(self, domain, key, value):
+        domain = domain[:]
+        domain.append(key)        
+        key = tuple(domain)
+        self._dictionary.update({key : value})
+
+    def _read(self, domain, key):
+        domain = domain[:]
+        domain.append(key)        
+        key = tuple(domain)
+        return self._dictionary.get(key)
+
 
 class FileStorage(Storage):
     # Maps storage domains to conf files
