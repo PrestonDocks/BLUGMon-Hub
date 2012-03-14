@@ -10,7 +10,7 @@ class Storage(object):
 
     # Returns a new storage class whose domain is composed of the parent
     # storage domain and the name passed in here
-    def domain(name):
+    def domain(self, name):
         return Storage(self._domain.add(name))
 
     def get(self, key):
@@ -20,7 +20,7 @@ class Storage(object):
         return self._write(self._domain, key, value)
     
     # Returns all the keys in the current domain
-    def keys():
+    def keys(self, domain):
         self._readkeys(domain)
 
     # Returns a list of all the domains that contain domain 
