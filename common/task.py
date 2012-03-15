@@ -32,7 +32,7 @@ class Task(object):
 
 # Manages a collection of tasks, used by hub and remote
 class TaskManager(object):
-    def __init__(self):
+    def __init__(self, storage):
         self._tasks = []
 
     def create(module, taskname, taskparams, tasksched):

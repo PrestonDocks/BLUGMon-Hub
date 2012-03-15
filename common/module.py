@@ -31,7 +31,7 @@ class Module(object):
 
 # Manages a collection of modules, used by hub and remote
 class ModuleManager(object):
-    def __init__(self):
+    def __init__(self, storage):
         pass
 
     def getbyname(name):
@@ -43,5 +43,5 @@ class ModuleManager(object):
     def install():
         pass
 
-    def uninstall()
+    def uninstall():
         pass

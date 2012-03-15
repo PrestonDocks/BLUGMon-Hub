@@ -8,11 +8,6 @@ class Storage(object):
         self._domain = [domain]
         pass
 
-    # Returns a new storage class whose domain is composed of the parent
-    # storage domain and the name passed in here
-    def domain(self, name):
-        return Storage(self._domain.add(name))
-
     def get(self, key):
         return self._read(self._domain, key)
 
@@ -31,6 +26,11 @@ class MemoryStorage(Storage):
     def __init__(self, domain):
         super(MemoryStorage, self).__init__(domain)
         self._dictionary = dict()
+
+    # Returns a new storage class (of child type, todo) whose domain is composed of the parent
+    # storage domain and the name passed in here
+    def domain(self, name):
+        return MemoryStorage(self._domain.append(name))
     
     # Check the domain length
     def _check_and_append(domain, key):
@@ -52,7 +52,7 @@ class MemoryStorage(Storage):
 class FileStorage(Storage):
     # Maps storage domains to conf files
     # i.e. domain [hub, client-007, tasks] would map to client-007/tasks.conf
-    # also domain is commutative as in [a, b] is the same as [b, a]
+    # also domain is commutative as in [a, b] is the same as [b, a] - actually not
 
     # hashtable ?
     map = [ { "client-%s/tasks.conf" : ["hub", "client-(\d+)", "task-(\d+)"] },

@@ -1,8 +1,12 @@
 #!/usr/bin/env python
+from task import *
+from module import *
 
 class Client(object):
     def __init__(self, storage):
         self._storage = storage
+        self._name = self._storage.get('name')
+        self._identifier = self._storage.get('identifier')
         self._tasks = TaskManager(self._storage.domain("task-(\d+)"))
         self._modules = ModuleManager(self._storage.domain("modules-(\d+)"))
 
